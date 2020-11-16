@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           rosdep update
-          rosdep install --from-paths src --ignore-src -y --rosdistro=foxy
+          rosdep install --from-paths src --ignore-src -y --rosdistro=foxy --skip-keys="turtlebot2_drivers map_server astra_camera amcl"
       - name: "Build"
         run: |
           colcon build --cmake-args '-DCMAKE_BUILD_TYPE=RelWithDebInfo' -Wall -Wextra -Wpedantic
