@@ -28,18 +28,10 @@ repositories:
     type: git
     url: https://github.com/MROS-RobMoSys-ITP/pointcloud_to_laserscan
     version: managed_node
-  utils/system_modes:
-    type: git
-    url: https://github.com/micro-ROS/system_modes
-    version: feature/rules
   utils/ros2_knowledge_graph:
       type: git
       url: https://github.com/fmrico/ros2_knowledge_graph.git
       version: master
-  navigation2:
-    type: git
-    url: https://github.com/MROS-RobMoSys-ITP/navigation2.git
-    version: pilot-urjc
   Pilot-URJC:
     type: git
     url: https://github.com/MROS-RobMoSys-ITP/Pilot-URJC.git
@@ -48,7 +40,9 @@ repositories:
     type: git
     url: https://github.com/tud-cor/mc_mros_reasoner.git
     version: foxy_devel
-  mros_modes_observer:
+  mros_ontology:
     type: git
-    url: https://github.com/MROS-RobMoSys-ITP/mros_modes_observer.git
+    url: https://github.com/MROS-RobMoSys-ITP/mros_ontology.git
     version: main
+  
+  
