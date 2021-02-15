@@ -1,3 +1,7 @@
 build/*
 install/*
 log/*
+error.owl
+.devcontainer/log/*
+.devcontainer/.devcontainer/*
+core
