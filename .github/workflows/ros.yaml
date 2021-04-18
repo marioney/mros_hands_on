@@ -2,36 +2,36 @@ name: ROS
 
 on:
   push:
-    branches: [foxy]
+    branches: [foxy, melodic]
   workflow_dispatch:
     
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: athackst/ros2:foxy-dev
+    container: athackst/ros:melodic-gazebo-nvidia
     steps:
       - uses: actions/checkout@v2
       - name: "Get workspace"
         run: |
-          if [ -f src/ros2.repos ]; then
-            vcs import --skip-existing < src/ros2.repos src
+          if [ -f src/ros_melodic.rosinstall ]; then
+            vcs import --skip-existing < ros_melodic.rosinstall
           fi
       - name: "Get dependencies"
         run: |
           sudo apt-get update
           rosdep update
-          rosdep install --from-paths src --ignore-src -y --rosdistro=foxy --skip-keys="turtlebot2_drivers map_server astra_camera amcl"
+          rosdep install --from-paths ./src -y -i -r --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          colcon build --cmake-args '-DCMAKE_BUILD_TYPE=RelWithDebInfo' -Wall -Wextra -Wpedantic
+          catkin build -v --cmake-args -DCMAKE_C_FLAGS="-Wall -W -Wno-unused-parameter"
         continue-on-error: true
       - name: "Test"
         run: |
-          colcon test
+          catkin_make run_tests
   lint:
     name: ament_${{ matrix.linter }}
     runs-on: ubuntu-latest
-    container: athackst/ros2:foxy-dev
+    container: athackst/ros2:melodic-gazebo-nvidia
     strategy:
       fail-fast: false
       matrix:
@@ -41,7 +41,7 @@ jobs:
       - name: "Get workspace"
         run: |
           if [ -f src/ros2.repos ]; then
-            vcs import --skip-existing < src/ros2.repos src
+            vcs import --skip-existing < ros_melodic.rosinstall
           fi
       - name: "run linter"
         run: |

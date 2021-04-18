@@ -1,4 +1,4 @@
-FROM athackst/ros2:foxy-dev 
+FROM athackst/ros:melodic-gazebo-nvidia
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
@@ -14,11 +14,11 @@ RUN apt-get update \
    && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
 
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES \
-    ${NVIDIA_VISIBLE_DEVICES:-all}
-ENV NVIDIA_DRIVER_CAPABILITIES \
-    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+# # nvidia-container-runtime
+# ENV NVIDIA_VISIBLE_DEVICES \
+#     ${NVIDIA_VISIBLE_DEVICES:-all}
+# ENV NVIDIA_DRIVER_CAPABILITIES \
+#     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 
 # Set up auto-source of workspace for ros user
