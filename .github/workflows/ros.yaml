@@ -23,7 +23,7 @@ jobs:
           rosdep install --from-paths ./src -y -i -r --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          catkin build -v --cmake-args -DCMAKE_C_FLAGS="-Wall -W -Wno-unused-parameter"
+          catkin build "
         continue-on-error: true
       - name: "Test"
         run: |

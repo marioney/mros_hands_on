@@ -1,7 +1,9 @@
 build/*
 install/*
-log/*
+logs/*
 error.owl
 .devcontainer/log/*
 .devcontainer/.devcontainer/*
 core
+.catkin_tools
+devel/*

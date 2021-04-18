@@ -8,7 +8,7 @@
             "label": "build",
             "detail": "Build workspace (default)",
             "type": "shell",
-            "command": "colcon build --merge-install --cmake-args '-DCMAKE_BUILD_TYPE=RelWithDebInfo' -Wall -Wextra -Wpedantic",
+            "command": "catkin build ",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -20,7 +20,7 @@
             "label": "test",
             "detail": "Run all unit tests and show results.",
             "type": "shell",
-            "command": "colcon test --merge-install; colcon test-result",
+            "command": "catkin_make run_tests; catkin_test_results",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -31,14 +31,14 @@
             "label": "clean",
             "detail": "Run the clean target",
             "type": "shell",
-            "command": "colcon build --cmake-target clean",
+            "command": "catkin clean -y",
             "problemMatcher": "$gcc"
         },
         {
             "label": "purge",
             "detail": "Purge workspace by deleting all generated files.",
             "type": "shell",
-            "command": "rm -fr build install log; py3clean .",
+            "command": "rm -fr build share log;",
             "problemMatcher": []
         },
         // Linting and static code analysis tasks
@@ -258,21 +258,21 @@
             "label": "import from workspace file",
             "detail": "Use vcs to import modules specified by a workspace/rosinstall file.",
             "type": "shell",
-            "command": "vcs import < ros2.repos src",
+            "command": "wstool init src ros_melodic.rosinstall",
             "problemMatcher": []
         },
         {
             "label": "update workspace file",
             "detail": "Use vcs to update repositories in src to workspace file.",
             "type": "shell",
-            "command": "vcs export src > src/ros2.repos",
+            "command": "vcs export src > ros_melodic.rosinstall",
             "problemMatcher": []
         },
         {
             "label": "install dependencies",
             "detail": "Install all dependencies specified in the workspaces package.xml files.",
             "type": "shell",
-            "command": "sudo apt-get update && rosdep update && rosdep install --from-paths src --ignore-src -y --rosdistro foxy --skip-keys=\"turtlebot2_drivers map_server astra_camera amcl\"",
+            "command": "sudo apt-get update && rosdep update && rosdep install --from-paths src --ignore-src -y --rosdistro melodic --skip-keys=\"abb_rws_interface\"",
             "problemMatcher": []
         }
     ],
