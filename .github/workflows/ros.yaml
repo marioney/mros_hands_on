@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           rosdep update
-          rosdep install --from-paths ./src -i -y --rosdistro melodic --skip-keys="abb_rws_interface"
+          rosdep install --from-paths src -i -y --rosdistro melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
           catkin build 
