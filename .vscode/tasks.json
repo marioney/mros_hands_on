@@ -26,6 +26,14 @@
                 "isDefault": true
             }
         },
+        // Run script
+        {
+            "label": "run_script",
+            "detail": "Run experiments script.",
+            "type": "shell",
+            "command": "rosrun metacontrol_experiments run_single_sim.sh",
+            "problemMatcher": []
+        },
         // Clean
         {
             "label": "clean",
