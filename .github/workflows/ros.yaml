@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     name: test_${{ matrix.tests }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container: ros:melodic
     strategy:
       fail-fast: false
@@ -18,18 +18,26 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Get workspace"
         run: |
-          if [ -f ros_melodic.rosinstall ]; then
-            wstool init src ros_melodic.rosinstall
-          fi
+            mkdir -p ~/metacontrol_ws/src
+            cd ~/metacontrol_ws
+            https://raw.githubusercontent.com/rosin-project/metacontrol_experiments/master/metacontrol_experiments.rosinstall
       - name: "Get dependencies"
         run: |
           sudo apt-get update
           rosdep update
+          rosdep install --from-paths src -y -i -r --skip-keys="abb_rws_interface" -s # do a dry-run first
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          source /opt/ros/melodic/setup.bash; catkin build 
+          source /opt/ros/melodic/setup.bash
+          cd ~/metacontrol_ws
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release
+          catkin build --no-status
+          source devel/setup.bash
         continue-on-error: false
       - name: "Run Tests"
         run: |
+          cd ~/catkin_ws
+          # nothing uses linting here so this fails:
+          # "Error: With --no-deps, you must specify packages to build."
           source ./devel/setup.bash; rostest mros1_reasoner ${{ matrix.tests }}.test
