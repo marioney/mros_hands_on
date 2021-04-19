@@ -9,7 +9,7 @@ jobs:
   test:
     name: test_${{ matrix.tests }}
     runs-on: ubuntu-20.04
-    container: ros:melodic
+    container: athackst/ros:melodic-gazebo
     strategy:
       fail-fast: false
       matrix:
@@ -18,24 +18,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Get workspace"
         run: |
-            mkdir -p ~/metacontrol_ws/src
-            cd ~/metacontrol_ws
             wstool init src https://raw.githubusercontent.com/rosin-project/metacontrol_experiments/master/metacontrol_experiments.rosinstall
       - name: "Get dependencies"
         run: |
           sudo apt-get update
-          cd ~/metacontrol_ws
           rosdep update
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          bash -c "source /opt/ros/melodic/setup.bash"
-          cd ~/metacontrol_ws
           catkin build
       - name: "Run Tests"
         run: |
-          cd ~/metacontrol_ws
-          bash -c "source devel/setup.bash"
-          # nothing uses linting here so this fails:
-          # "Error: With --no-deps, you must specify packages to build."
           rostest mros1_reasoner ${{ matrix.tests }}.test
