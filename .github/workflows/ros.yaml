@@ -24,6 +24,7 @@ jobs:
       - name: "Get dependencies"
         run: |
           sudo apt-get update
+          cd ~/metacontrol_ws
           rosdep update
           rosdep install --from-paths src -y -i -r --skip-keys="abb_rws_interface" -s # do a dry-run first
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
