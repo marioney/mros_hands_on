@@ -31,9 +31,7 @@ jobs:
         run: |
           bash -c "source /opt/ros/melodic/setup.bash"
           cd ~/metacontrol_ws
-          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release
-          catkin build --no-status
-        continue-on-error: false
+          catkin build
       - name: "Run Tests"
         run: |
           cd ~/metacontrol_ws
