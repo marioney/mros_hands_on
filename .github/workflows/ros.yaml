@@ -32,4 +32,4 @@ jobs:
         continue-on-error: false
       - name: "Run Tests"
         run: |
-          source devel/setup.bash; rostest mros1_reasoner ${{ matrix.tests }}.test
+          bash "source devel/setup.bash"; rostest mros1_reasoner ${{ matrix.tests }}.test
