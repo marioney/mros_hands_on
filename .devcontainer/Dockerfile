@@ -17,17 +17,18 @@ ENV DEBIAN_FRONTEND=dialog
 # Expose the nvidia driver to allow opengl 
 # Dependencies for glvnd and X11.
 ################
-# RUN apt-get update \
-#  && apt-get install -y -qq --no-install-recommends \
-#   libglvnd0 \
-#   libgl1 \
-#   libglx0 \
-#   libegl1 \
-#   libxext6 \
-#   libx11-6 \
-#   && apt-get autoremove -y \
-#   && apt-get clean -y \
-#   && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+ && apt-get install -y -qq --no-install-recommends \
+  libxau6 \
+  libglvnd0 \
+  libgl1 \
+  libglx0 \
+  libegl1 \
+  libxext6 \
+  libx11-6 \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND=dialog
 
