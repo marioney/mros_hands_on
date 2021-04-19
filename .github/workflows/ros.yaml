@@ -29,7 +29,7 @@ jobs:
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          source /opt/ros/melodic/setup.bash
+          -c "source /opt/ros/melodic/setup.bash"
           cd ~/metacontrol_ws
           catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release
           catkin build --no-status
