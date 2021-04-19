@@ -24,10 +24,10 @@ jobs:
       - name: "Build"
         run: |
           catkin build 
-        continue-on-error: true
+        continue-on-error: false
       - name: "Test"
         run: |
-          catkin_make run_tests
+          catkin build --catkin-make-args run_tests
   lint:
     name: ament_${{ matrix.linter }}
     runs-on: ubuntu-latest
