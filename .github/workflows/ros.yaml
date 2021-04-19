@@ -9,7 +9,7 @@ jobs:
   test:
     name: test_${{ matrix.tests }}
     runs-on: ubuntu-latest
-    container: athackst/ros:melodic-gazebo
+    container: ros:melodic
     strategy:
       fail-fast: false
       matrix:
