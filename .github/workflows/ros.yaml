@@ -29,15 +29,15 @@ jobs:
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          -c "source /opt/ros/melodic/setup.bash"
+          bash -c "source /opt/ros/melodic/setup.bash"
           cd ~/metacontrol_ws
           catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release
           catkin build --no-status
-          source devel/setup.bash
         continue-on-error: false
       - name: "Run Tests"
         run: |
           cd ~/metacontrol_ws
+          bash -c "source devel/setup.bash"
           # nothing uses linting here so this fails:
           # "Error: With --no-deps, you must specify packages to build."
           rostest mros1_reasoner ${{ matrix.tests }}.test
