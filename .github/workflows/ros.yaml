@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     name: test_${{ matrix.tests }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container: athackst/ros:melodic-gazebo
     strategy:
       fail-fast: false
@@ -18,9 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Get workspace"
         run: |
-          if [ -f ros_melodic.rosinstall ]; then
-            wstool init src ros_melodic.rosinstall
-          fi
+            wstool init src https://raw.githubusercontent.com/rosin-project/metacontrol_experiments/master/metacontrol_experiments.rosinstall
       - name: "Get dependencies"
         run: |
           sudo apt-get update
@@ -28,8 +26,8 @@ jobs:
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
-          catkin build 
-        continue-on-error: false
+          catkin build
       - name: "Run Tests"
         run: |
-          bash "source devel/setup.bash"; rostest mros1_reasoner ${{ matrix.tests }}.test
+          bash -c "source devel/setup.bash"
+          rostest mros1_reasoner ${{ matrix.tests }}.test
