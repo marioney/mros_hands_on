@@ -31,10 +31,10 @@ jobs:
       - name: "Build"
         run: |
           cd ~/metacontrol_ws
-          source /opt/ros/melodic/setup.bash
-          catkin build
+          bash -i -c "source /opt/ros/melodic/setup.bash; catkin build"
       - name: "Run Scripts"
         run: |
-          source devel/setup.bash
-          roscd metacontrol_experiments
+          cd ~/metacontrol_ws
+          bash -i -c "source devel/setup.bash; \
+          roscd metacontrol_experiments; \
           ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
