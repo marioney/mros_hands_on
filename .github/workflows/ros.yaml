@@ -7,7 +7,7 @@ on:
     
 jobs:
   test:
-    name: test_${{ matrix.profie }}_${{ matrix.init }}_${{ matrix.goal }}
+    name: test_${{ matrix.profile }}_${{ matrix.init }}_${{ matrix.goal }}
     runs-on: ubuntu-20.04
     container: athackst/ros:melodic-gazebo
     strategy:
@@ -31,4 +31,4 @@ jobs:
           catkin build
       - name: "Run Scripts"
         run: |
-          bash -ic "source devel/setup.bash; rosrun metacontrol_experiments run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profie }}"
+          bash -ic "source devel/setup.bash; rosrun metacontrol_experiments run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
