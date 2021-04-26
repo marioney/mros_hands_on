@@ -35,6 +35,7 @@ jobs:
       - name: "Run Scripts"
         run: |
           cd ~/metacontrol_ws
-          bash -i -c "source devel/setup.bash; \
+          bash -i -c "source ~/metacontrol_ws/devel/setup.bash; \
           roscd metacontrol_experiments; \
+          ps aux | grep ros | grep -v grep; \
           ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
