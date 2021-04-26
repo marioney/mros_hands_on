@@ -9,7 +9,7 @@ jobs:
   test:
     name: test_${{ matrix.profile }}_${{ matrix.init }}_${{ matrix.goal }}
     runs-on: ubuntu-20.04
-    container: osrf/ros:melodic-desktop-bionic
+    container: osrf/ros:melodic-desktop-full-bionic
     strategy:
       fail-fast: false
       matrix:
@@ -17,18 +17,24 @@ jobs:
           init: ["1"]
           goal: ["4"]
     steps:
-      - uses: actions/checkout@v2
       - name: "Get workspace"
         run: |
+            mkdir -p ~/metacontrol_ws/src
+            cd ~/metacontrol_ws
             wstool init src https://raw.githubusercontent.com/rosin-project/metacontrol_experiments/master/metacontrol_experiments.rosinstall
       - name: "Get dependencies"
         run: |
           sudo apt-get update
           rosdep update
+          cd ~/metacontrol_ws          
           rosdep install --from-paths src --ignore-src -y --rosdistro=melodic --skip-keys="abb_rws_interface"
       - name: "Build"
         run: |
+          cd ~/metacontrol_ws
+          source /opt/ros/melodic/setup.bash
           catkin build
       - name: "Run Scripts"
         run: |
-          bash -ic "source devel/setup.bash; roscd metacontrol_experiments; ps aux | grep ros | grep -v grep; ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
+          source devel/setup.bash
+          roscd metacontrol_experiments
+          ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
