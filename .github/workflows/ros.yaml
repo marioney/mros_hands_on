@@ -13,9 +13,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-          profile: ["f1_v1_r1"]
-          init: ["1"]
-          goal: ["4"]
+          profile: ["f1_v1_r1","f1_v1_r2","f1_v1_r3"]
+          init: ["1", "2", "3"]
+          goal: ["1", "2", "3"]
     steps:
       - name: "Get workspace"
         run: |
@@ -34,7 +34,6 @@ jobs:
           bash -i -c "source /opt/ros/melodic/setup.bash; catkin build"
       - name: "Run Scripts"
         run: |
-          cd ~/metacontrol_ws
           bash -i -c "source ~/metacontrol_ws/devel/setup.bash; \
           roscd metacontrol_experiments; \
           ps aux | grep ros | grep -v grep; \
