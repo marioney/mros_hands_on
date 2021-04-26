@@ -9,13 +9,13 @@ jobs:
   test:
     name: test_${{ matrix.profile }}_${{ matrix.init }}_${{ matrix.goal }}
     runs-on: ubuntu-20.04
-    container: athackst/ros:melodic-gazebo
+    container: osrf/ros:melodic-desktop-bionic
     strategy:
       fail-fast: false
       matrix:
           profile: ["f1_v1_r1"]
-          init: ["1", "2"]
-          goal: ["4", "5"]
+          init: ["1"]
+          goal: ["4"]
     steps:
       - uses: actions/checkout@v2
       - name: "Get workspace"
