@@ -15,9 +15,9 @@ jobs:
       fail-fast: false
       matrix:
           distro: ["osrf/ros:melodic-desktop-full-bionic"]
-          profile: ["f1_v1_r1","f1_v1_r2","f1_v1_r3"]
-          init: ["1", "2", "3"]
-          goal: ["1", "2", "3"]
+          profile: ["f1_v1_r1"]
+          init: ["1"]
+          goal: ["3"]
     env:
       CCACHE_DIR: "/home/runner/.ccache"
       LOG_DIR: "/github/home/metacontrol_ws/src/metacontrol_experiments/data"
@@ -50,7 +50,7 @@ jobs:
           bash -i -c "source ~/metacontrol_ws/devel/setup.bash; \
           roscd metacontrol_experiments; \
           ps aux | grep ros | grep -v grep; \
-          ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }}"
+          ./run_single_sim.sh -i ${{ matrix.init }} -g ${{ matrix.goal }} -n ${{ matrix.profile }} -l 1.0"
           find ${{ env.LOG_DIR }} -name "*.csv" -exec mv {} ${{ env.LOG_DIR }}/${{ env.LOG_FILENAME }}${{ matrix.profile }}
       - name: 'Upload log artifact'
         uses: actions/upload-artifact@v2
