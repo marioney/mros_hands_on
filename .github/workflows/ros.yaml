@@ -17,7 +17,7 @@ jobs:
           distro: ["osrf/ros:melodic-desktop-full-bionic"]
           profile: ["f1_v1_r1"]
           init: ["1"]
-          goal: ["3"]
+          goal: ["8"]
     env:
       CCACHE_DIR: "/home/runner/.ccache"
       LOG_DIR: "/github/home/metacontrol_ws/src/metacontrol_experiments/data"
@@ -45,6 +45,11 @@ jobs:
         run: |
           cd ~/metacontrol_ws
           bash -i -c "source /opt/ros/melodic/setup.bash; catkin build"
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          format: 'YYYY-MM-DD-HH-mm-ss'
       - name: "Run Scripts"
         run: |
           bash -i -c "source ~/metacontrol_ws/devel/setup.bash; \
