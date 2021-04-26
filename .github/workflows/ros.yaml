@@ -29,5 +29,4 @@ jobs:
           catkin build
       - name: "Run Tests"
         run: |
-          bash -c "source devel/setup.bash"
-          rostest mros1_reasoner ${{ matrix.tests }}.test
+          bash -ic "source devel/setup.bash; rostest mros1_reasoner ${{ matrix.tests }}.test"
