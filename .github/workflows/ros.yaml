@@ -8,11 +8,13 @@ on:
 jobs:
   test:
     name: test_${{ matrix.profile }}_${{ matrix.init }}_${{ matrix.goal }}
-    runs-on: ubuntu-20.04
-    container: osrf/ros:melodic-desktop-full-bionic
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.distro }}
     strategy:
       fail-fast: false
       matrix:
+          distro: ["osrf/ros:melodic-desktop-full-bionic"]
           profile: ["f1_v1_r1","f1_v1_r2","f1_v1_r3"]
           init: ["1", "2", "3"]
           goal: ["1", "2", "3"]
@@ -21,6 +23,13 @@ jobs:
       LOG_DIR: "/github/home/metacontrol_ws/src/metacontrol_experiments/data"
       LOG_FILENAME: "log_Metacontrol_sim_"
     steps:
+      - name: ccache cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ matrix.distro }}-${{github.run_id}}
+          restore-keys: |
+            ccache-${{ matrix.distro }}
       - name: "Get workspace"
         run: |
             mkdir -p ~/metacontrol_ws/src
