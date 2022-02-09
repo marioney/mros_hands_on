@@ -5,7 +5,7 @@ FROM athackst/ros2:foxy-dev
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
    && apt-get -y install --no-install-recommends \
-   openjdk-14-jre \
+   openjdk-11-jre \
    #
    # Clean up
    && pip3 install owlready2 \
