@@ -85,7 +85,35 @@ VSCode will build the dockerfile inside of `.devcontainer` for you.  If you open
 
 ### Update the template with your code
 
-1. Specify the repositories you want to include in your workspace in `src/ros2.repos` or delete `src/ros2.repos` and develop directly within the workspace.
-   1. If you are using a `ros2.repos` file, import the contents `Terminal->Run Task..->import from workspace file`
+
+1. Specify the repositories you want to include in your workspace in `ros2.repos` or delete `ros2.repos` and develop directly within the `/src` folder.
+2. Create src folder `mkdir src`
+3. If you are using a `ros2.repos` file:
+   1. Import the contents `Terminal->Run Task..->import from workspace file`
 2. Install dependencies `Terminal->Run Task..->install dependencies`
 3. Develop!
+
+### Running your code
+Once the docker image is running and your code from 'ros2.repos' imported, compile your workspace:
+   ```
+   colcon build --symlink-install
+   ```
+For MROS turtlebot simulation:
+1. Starting with a Turtlebo3 in Gazebo.
+   ```
+   ros2 launch navigation_experiments_mc_bts_pddl_base tb3_sim_launch.py
+   ```
+2. Navigation launcher.
+   ```
+   ros2 launch navigation_experiments_mc_bts_pddl_base nav2_turtlebot3_launch.py
+   ```
+3. Launch the mros2 metacontroller.
+   ```
+   ros2 launch mros2_reasoner launch_reasoner.launch.py
+   ```
+4. Behavior tree patrol mission.
+  ```
+  ros2 launch navigation_experiments_mc_bts bt_controller_launch.py
+  ```
+ 
+ 
