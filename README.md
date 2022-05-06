@@ -44,6 +44,8 @@ You should already have Docker and VSCode with the remote containers plugin inst
 * [vscode](https://code.visualstudio.com/)
 * [vscode remote containers plugin](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
+This instructions assume that you have an Nvidia graphics card, if you don't, or you encounter any issues, please check the [Known Issues](#known-issues) section at the bottom.
+
 ### Get the template
 
 Click on "use this template"
@@ -115,3 +117,10 @@ For MROS turtlebot simulation:
    ```
  
  
+## Known Issues
+
+If you have an Nvidia card: install the nvidia runtime for docker
+```
+sudo apt-get install -y nvidia-docker2
+```
+If do not have it, remove or comment out the --runtime=nvidia from the devcontainer.json file
